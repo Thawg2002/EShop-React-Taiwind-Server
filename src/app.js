@@ -1,0 +1,19 @@
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import mongoose from "mongoose";
+// import dotenv from "dotenv";
+// dotenv.config();
+import authRouter from "./router/UserRouter";
+import ProductRouter from "./router/ProductRouter";
+
+const app = express();
+app.use(express.json());
+app.use(morgan("tiny"));
+app.use(cors());
+
+mongoose.connect("mongodb://localhost:27017/Shosy-Ecommerce-Starter");
+
+app.use("/api", authRouter);
+app.use("/api", ProductRouter);
+export const viteNodeApp = app;
