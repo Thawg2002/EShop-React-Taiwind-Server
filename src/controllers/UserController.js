@@ -10,10 +10,10 @@ import { refreshTokenSV } from "../server/JwtService";
 export const createUser = async (req, res) => {
   try {
     // console.log(req.body);
-    const {  email, password, confirmPassword } = req.body;
+    const { email, password, confirmPassword } = req.body;
     const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const isCheckEmail = reg.test(email);
-    if ( !email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword) {
       return res.status(200).json({
         status: "ERR",
         message: "The input is required",
@@ -30,6 +30,7 @@ export const createUser = async (req, res) => {
       });
     }
     const data = await CreateUser(req.body);
+    data.data.password = undefined;
     return res.status(200).json(data);
   } catch (error) {
     return res.status(404).json({ message: error.message });
@@ -53,7 +54,13 @@ export const loginUser = async (req, res) => {
       });
     }
     const data = await Signin(req.body);
-    return res.status(200).json(data);
+    data.data.password = undefined;
+    const { refresh_token, ...newData } = data;
+    res.cookie("refresh_token", refresh_token, {
+      HttpOnly: true,
+      Secure: true,
+    });
+    return res.status(200).json(newData);
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
@@ -115,8 +122,11 @@ export const getUserById = async (req, res) => {
   }
 };
 export const refreshTokenController = async (req, res) => {
+  // console.log("req.cookie", req.cookies);
   try {
-    const token = req.headers.authorization.split(" ")[1];
+    // const token = req.headers.authorization.split(" ")[1];
+    const token = req.cookies.refresh_token;
+    console.log("token", token);
     if (!token) {
       return res.status(200).json({
         status: "ERR",

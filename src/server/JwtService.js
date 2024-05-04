@@ -2,10 +2,10 @@ import jwt from "jsonwebtoken";
 export const genneralAccessToken = (payload) => {
   const access_Token = jwt.sign(
     {
-      payload,
+      ...payload,
     },
     "access_token",
-    { expiresIn: "30s" }
+    { expiresIn: "1d" }
   );
   return access_Token;
 };
@@ -13,7 +13,7 @@ export const genneralAccessToken = (payload) => {
 export const genneralRefreshToken = (payload) => {
   const access_Token = jwt.sign(
     {
-      payload,
+      ...payload,
     },
     "refresh_token",
     { expiresIn: "365d" }
@@ -42,7 +42,6 @@ export const refreshTokenSV = (token) => {
             access_token,
           });
         }
-        
       });
     } catch (error) {
       reject(error);

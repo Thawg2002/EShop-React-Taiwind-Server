@@ -6,11 +6,13 @@ import mongoose from "mongoose";
 // dotenv.config();
 import authRouter from "./router/UserRouter";
 import ProductRouter from "./router/ProductRouter";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors());
+app.use(cookieParser())
 
 mongoose.connect("mongodb://localhost:27017/Shosy-Ecommerce-Starter");
 
