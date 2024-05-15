@@ -5,7 +5,7 @@ export const genneralAccessToken = (payload) => {
       ...payload,
     },
     "access_token",
-    { expiresIn: "1d" }
+    { expiresIn: "30s" }
   );
   return access_Token;
 };
@@ -16,35 +16,7 @@ export const genneralRefreshToken = (payload) => {
       ...payload,
     },
     "refresh_token",
-    { expiresIn: "365d" }
+    { expiresIn: "7d" }
   );
   return access_Token;
-};
-export const refreshTokenSV = (token) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      jwt.verify(token, "refresh_token", async (err, user) => {
-        if (err) {
-          resolve({
-            status: "ERROR",
-            message: "The authentication",
-          });
-        }
-        const { payload } = user;
-        const access_token = await genneralAccessToken({
-          id: payload?.id,
-          isAdmin: payload?.isAdmin,
-        });
-        if (refreshTokenSV) {
-          resolve({
-            status: "OK",
-            message: "The SUSSCESS",
-            access_token,
-          });
-        }
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
 };

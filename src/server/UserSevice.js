@@ -1,4 +1,5 @@
 import UserModel from "../model/UserModel";
+import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import { genneralAccessToken, genneralRefreshToken } from "./JwtService";
 export const CreateUser = (newUser) => {
@@ -51,7 +52,7 @@ export const Signin = (userlogin) => {
           message: "The password or user is correct",
         });
       }
-      const access_Token = await genneralAccessToken({
+      const access_token = await genneralAccessToken({
         id: checkUser.id,
         isAdmin: checkUser.isAdmin,
       });
@@ -60,12 +61,13 @@ export const Signin = (userlogin) => {
         id: checkUser.id,
         isAdmin: checkUser.isAdmin,
       });
+      // checkUser.password=undefined;
       if (Signin) {
         resolve({
           status: "OK",
           message: "login success",
           data: checkUser,
-          access_Token: access_Token,
+          access_token: access_token,
           refresh_token: refresh_token,
         });
       }
@@ -151,13 +153,41 @@ export const getUserByIdSV = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const user = await UserModel.findOne({ _id: id });
-      // console.log("Updated user", user);
       if (getUserByIdSV) {
         resolve({
           status: "OK",
           user,
         });
       }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const refreshTokenSV = (token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      jwt.verify(token, "refresh_token", async (err, user) => {
+        if (err) {
+          resolve({
+            status: "ERROR",
+            message: "The authentication",
+          });
+        }
+        const access_token = await genneralAccessToken({
+          id: user?.id,
+          isAdmin: user?.isAdmin,
+        });
+        // console.log("access_token new: " + access_token);
+
+        if (refreshTokenSV) {
+          resolve({
+            status: "OK",
+            message: "The SUSSCESS TOKEN NEW",
+            access_token,
+          });
+        }
+      });
     } catch (error) {
       reject(error);
     }
