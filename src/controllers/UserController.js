@@ -137,8 +137,12 @@ export const refreshTokenController = async (req, res) => {
 };
 export const logoutUser = async (req, res) => {
   try {
+    res.clearCookie("refresh_token");
     // const data = await refreshTokenSV(token);
-    // return res.status(200).json(data);
+    return res.status(200).json({
+      status: "OK",
+      message:"Logout successfully"
+    });
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }

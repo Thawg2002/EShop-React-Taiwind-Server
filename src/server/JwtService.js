@@ -5,7 +5,7 @@ export const genneralAccessToken = (payload) => {
       ...payload,
     },
     "access_token",
-    { expiresIn: "30s" }
+    { expiresIn: "1d" }
   );
   return access_Token;
 };

@@ -29,6 +29,14 @@ const productSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    discount: {
+      type: Number,
+      default: 0,
+    },
+    selled: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true, versionKey: false }
 );
