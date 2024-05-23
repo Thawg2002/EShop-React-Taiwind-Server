@@ -9,15 +9,27 @@ import {
 export const createProduct = async (req, res) => {
   try {
     // console.log(req.body);
-    const { name, price, description, type, image, countInStock, rating } =
-      req.body;
+    const {
+      name,
+      price,
+      description,
+      categories,
+      image,
+      countInStock,
+      rating,
+      discount,
+      selled,
+      gallery,
+    } = req.body;
     if (
       !name ||
       !price ||
       !description ||
-      !type ||
+      !categories ||
       !image ||
       !countInStock ||
+      !discount ||
+      !selled ||
       !rating
     ) {
       return res.status(200).json({
@@ -81,12 +93,12 @@ export const deleteProduct = async (req, res) => {
 };
 export const getAllProduct = async (req, res) => {
   try {
-    const { limit, page, sort ,filter} = req.query;
+    const { limit, page, sort, filter } = req.query;
     const data = await getAllProductSV(
       Number(limit) || 8,
       Number(page) || 0,
-      sort , 
-      filter 
+      sort,
+      filter
     );
     return res.status(200).json(data);
   } catch (error) {

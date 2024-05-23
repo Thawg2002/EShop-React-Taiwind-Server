@@ -3,8 +3,18 @@ import bcryptjs from "bcryptjs";
 
 export const CreateProductSV = (newProduct) => {
   return new Promise(async (resolve, reject) => {
-    const { name, price, description, type, image, countInStock, rating } =
-      newProduct;
+    const {
+      name,
+      price,
+      description,
+      categories,
+      image,
+      countInStock,
+      rating,
+      discount,
+      selled,
+      gallery,
+    } = newProduct;
     try {
       const checkProduct = await ProductModel.findOne({ name });
       if (checkProduct != null) {
@@ -18,10 +28,13 @@ export const CreateProductSV = (newProduct) => {
         name,
         price,
         description,
-        type,
+        categories,
         image,
         countInStock,
         rating,
+        discount,
+        selled,
+        gallery,
       });
 
       resolve({

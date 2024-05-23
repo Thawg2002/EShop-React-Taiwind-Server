@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
+    categories: {
       type: String,
       required: true,
     },
@@ -36,6 +36,9 @@ const productSchema = new mongoose.Schema(
     selled: {
       type: Number,
       default: 0,
+    },
+    gallery: {
+      type: Array,
     },
   },
   { timestamps: true, versionKey: false }
