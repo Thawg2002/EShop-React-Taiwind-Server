@@ -20,7 +20,7 @@ router.post("/signup", createUser);
 router.post("/signin", loginUser);
 router.post("/log-out", logoutUser);
 router.put("/update-user/:id", authUserMiddleware, updateUser);
-router.get("/user", authMiddleware, getAllUsers);
+router.get("/user",  getAllUsers);
 router.delete("/delete-user/:id", authMiddleware, deleteUser);
 router.get("/user/:id", authUserMiddleware, getUserById);
 // Tạo token mới khi token hết hạn
