@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 export const authMiddleware = (req, res, next) => {
-  //   console.log(req.headers.authorization.split(' ')[1]);
   const token = req.headers.authorization.split(" ")[1];
   jwt.verify(token, "access_token", function (err, user) {
     if (err) {
@@ -32,9 +31,8 @@ export const authUserMiddleware = (req, res, next) => {
         satatus: "ERROR",
       });
     }
-    console.log("user" , user);
+    console.log("user", user);
     if (user?.isAdmin || user?.id === userid) {
-
       next();
     } else {
       return res.status(404).json({
