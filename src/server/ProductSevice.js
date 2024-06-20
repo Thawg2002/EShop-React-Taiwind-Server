@@ -129,7 +129,7 @@ export const getAllProductSV = (limit, page, sort, filter) => {
       const totalProduct = await ProductModel.countDocuments();
       if (filter) {
         const label = filter[0];
-        const dataSort = await ProductModel.find({
+        const data = await ProductModel.find({
           [label]: { $regex: filter[1] },
         })
           .limit(limit)
@@ -139,7 +139,7 @@ export const getAllProductSV = (limit, page, sort, filter) => {
         resolve({
           status: "OK",
           message: "get   Product successfully",
-          dataSort,
+          data,
           total: totalProduct,
           pageCurrent: Number(page + 1),
           totalPages: Math.ceil(totalProduct / limit),
@@ -148,7 +148,7 @@ export const getAllProductSV = (limit, page, sort, filter) => {
       if (sort) {
         const objectSort = {};
         objectSort[sort[1]] = sort[0];
-        const dataSort = await ProductModel.find()
+        const data = await ProductModel.find()
           .limit(limit)
           .skip(page * limit)
           .sort(objectSort);
@@ -156,20 +156,20 @@ export const getAllProductSV = (limit, page, sort, filter) => {
         resolve({
           status: "OK",
           message: "get   Product successfully",
-          dataSort,
+          data,
           total: totalProduct,
           pageCurrent: Number(page + 1),
           totalPages: Math.ceil(totalProduct / limit),
         });
       }
-      const dataAll = await ProductModel.find()
+      const data = await ProductModel.find()
         .limit(limit)
         .skip(page * limit);
 
       resolve({
         status: "OK",
         message: "get All Product successfully",
-        dataAll,
+        data,
         total: totalProduct,
         pageCurrent: Number(page + 1),
         totalPages: Math.ceil(totalProduct / limit),
@@ -178,4 +178,19 @@ export const getAllProductSV = (limit, page, sort, filter) => {
       reject(error);
     }
   });
+};
+export const getAllCategorieSV = async () => {
+  try {
+    const data = await ProductModel.distinct("categories");
+    return {
+      status: "OK",
+      message: "Get all categories successfully",
+      data,
+    };
+  } catch (error) {
+    return {
+      status: "FAIL",
+      message: error.message,
+    };
+  }
 };

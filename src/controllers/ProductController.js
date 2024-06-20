@@ -2,6 +2,7 @@ import {
   CreateProductSV,
   UpdateProductSV,
   deleteProductSV,
+  getAllCategorieSV,
   getAllProductSV,
   getProductByIdSV,
 } from "../server/ProductSevice";
@@ -100,6 +101,14 @@ export const getAllProduct = async (req, res) => {
       sort,
       filter
     );
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
+export const getAllCategories = async (req, res) => {
+  try {
+    const data = await getAllCategorieSV();
     return res.status(200).json(data);
   } catch (error) {
     return res.status(404).json({ message: error.message });
