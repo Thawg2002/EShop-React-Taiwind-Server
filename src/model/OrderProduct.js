@@ -87,4 +87,4 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false }
 );
 
-export default mongoose.model("Product", orderSchema);
+export default mongoose.model("Order", orderSchema);

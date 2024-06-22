@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 // dotenv.config();
 import authRouter from "./router/UserRouter";
 import ProductRouter from "./router/ProductRouter";
+import OrderRouter from "./router/OrderRouter";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 const app = express();
@@ -29,5 +30,6 @@ mongoose.connect("mongodb://localhost:27017/Shosy-Ecommerce-Starter");
 
 app.use("/api", authRouter);
 app.use("/api", ProductRouter);
+app.use("/api", OrderRouter);
 
 export const viteNodeApp = app;
