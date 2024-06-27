@@ -16,7 +16,6 @@ export const createOrderService = (newOrder) => {
       user,
       isPaid,
       paidAt,
-      email,
     } = newOrder;
     try {
       const promises = orderItems.map(async (order) => {
@@ -75,14 +74,15 @@ export const createOrderService = (newOrder) => {
           paidAt,
         });
         if (createdOrder) {
-          await EmailService.sendEmailCreateOrder(email, orderItems);
+          // await EmailService.sendEmailCreateOrder(email, orderItems);
           resolve({
             status: "OK",
-            message: "success",
+            message: "Order created successfully",
           });
         }
       }
     } catch (e) {
+      console.log("e", e);
       reject(e);
     }
   });

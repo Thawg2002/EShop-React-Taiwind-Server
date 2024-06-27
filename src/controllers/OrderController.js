@@ -7,6 +7,7 @@ import {
 } from "../server/OrderSevices";
 
 export const createOrder = async (req, res) => {
+  console.log(req.body);
   try {
     const {
       paymentMethod,
@@ -30,7 +31,7 @@ export const createOrder = async (req, res) => {
     ) {
       return res.status(200).json({
         status: "ERR",
-        message: "The input is required",
+        message: "The input is required tại đây",
       });
     }
     const response = await createOrderService(req.body);
