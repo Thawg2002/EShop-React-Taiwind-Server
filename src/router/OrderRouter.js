@@ -14,6 +14,6 @@ router.post("/order/create", authMiddleware, createOrder);
 router.get("/order/get-all/:id", authMiddleware, getAllOrderDetails);
 router.get("/order/get/:id", authMiddleware, getDetailsOrder);
 router.delete("/order/cancel/:id", authMiddleware, cancelOrderDetails);
-router.get("/order/get-all-orders", authMiddleware, getAllOrder);
+router.get("/order/get-all-orders/:id", authMiddleware, getAllOrder);
 
 export default router;

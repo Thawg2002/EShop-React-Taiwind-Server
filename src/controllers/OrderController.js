@@ -19,21 +19,21 @@ export const createOrder = async (req, res) => {
       city,
       phone,
     } = req.body;
-    if (
-      !paymentMethod ||
-      !itemsPrice ||
-      !shippingPrice ||
-      !totalPrice ||
-      !fullName ||
-      !address ||
-      !city ||
-      !phone
-    ) {
-      return res.status(200).json({
-        status: "ERR",
-        message: "The input is required tại đây",
-      });
-    }
+    // if (
+    //   !paymentMethod ||
+    //   !itemsPrice ||
+    //   !shippingPrice ||
+    //   !totalPrice ||
+    //   !fullName ||
+    //   !address ||
+    //   !city ||
+    //   !phone
+    // ) {
+    //   return res.status(400).json({
+    //     status: "ERR",
+    //     message: "The input is required tại đây",
+    //   });
+    // }
     const response = await createOrderService(req.body);
     return res.status(200).json(response);
   } catch (e) {

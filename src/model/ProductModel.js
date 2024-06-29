@@ -40,6 +40,9 @@ const productSchema = new mongoose.Schema(
     gallery: {
       type: Array,
     },
+    // quanlity: {
+    //   type: Number,
+    // },
   },
   { timestamps: true, versionKey: false }
 );
