@@ -81,8 +81,10 @@ export const getDetailsOrder = async (req, res) => {
 
 export const cancelOrderDetails = async (req, res) => {
   try {
-    const data = req.body.orderItems;
-    const orderId = req.body.orderId;
+    const data = req.body;
+    const orderId = req.params.id;
+    console.log("data", data);
+    console.log("orderId", orderId);
     if (!orderId) {
       return res.status(200).json({
         status: "ERR",
@@ -90,6 +92,7 @@ export const cancelOrderDetails = async (req, res) => {
       });
     }
     const response = await cancelOrderDetailsService(orderId, data);
+
     return res.status(200).json(response);
   } catch (e) {
     return res.status(404).json({
