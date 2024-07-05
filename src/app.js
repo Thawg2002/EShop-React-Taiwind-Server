@@ -28,7 +28,7 @@ app.use(
 
 app.use(cookieParser());
 
-mongoose.connect("mongodb://localhost:27017/Shosy-Ecommerce-Starter");
+mongoose.connect(process.env.DB_URI);
 
 app.use("/api", authRouter);
 app.use("/api", ProductRouter);
