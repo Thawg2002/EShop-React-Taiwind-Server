@@ -7,7 +7,7 @@ import {
 } from "../server/OrderSevices";
 
 export const createOrder = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const {
       paymentMethod,
@@ -83,8 +83,8 @@ export const cancelOrderDetails = async (req, res) => {
   try {
     const data = req.body;
     const orderId = req.params.id;
-    console.log("data", data);
-    console.log("orderId", orderId);
+    // console.log("data", data);
+    // console.log("orderId", orderId);
     if (!orderId) {
       return res.status(200).json({
         status: "ERR",

@@ -1,5 +1,6 @@
 import Product from "../model/ProductModel";
 import Order from "../model/OrderProduct";
+import { sendEmailCreateOrder } from "./EmailServices";
 
 export const createOrderService = (newOrder) => {
   return new Promise(async (resolve, reject) => {
@@ -16,6 +17,7 @@ export const createOrderService = (newOrder) => {
       user,
       isPaid,
       paidAt,
+      email,
     } = newOrder;
     try {
       const promises = orderItems.map(async (order) => {
@@ -74,15 +76,19 @@ export const createOrderService = (newOrder) => {
           paidAt,
         });
         if (createdOrder) {
-          // await EmailService.sendEmailCreateOrder(email, orderItems);
+          await sendEmailCreateOrder(email, orderItems);
           resolve({
             status: "OK",
             message: "Order created successfully",
           });
         }
       }
+      // await sendEmailCreateOrder();
+      // resolve({
+      //   status: "OK",
+      //   message: "Đơn hàng đã được tạo và email đã được gửi thành công",
+      // });
     } catch (e) {
-      console.log("e", e);
       reject(e);
     }
   });

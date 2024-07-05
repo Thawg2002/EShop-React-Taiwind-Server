@@ -18,7 +18,6 @@ app.use(express.json());
 app.use(morgan("tiny"));
 //Lấy client id từ .env
 const CLIENT_ID = process.env.CLIENT_ID;
-console.log("CLIENT_ID", CLIENT_ID);
 app.use(
   cors({
     origin: "http://localhost:5173",
