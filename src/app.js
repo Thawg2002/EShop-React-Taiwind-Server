@@ -16,8 +16,8 @@ app.use(bodyParser.json({ limit: "10mb" })); // Giới hạn cho JSON payload
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true })); // Giới hạn cho URL-encoded payload
 app.use(express.json());
 app.use(morgan("tiny"));
-//Lấy client id từ .env
-const CLIENT_ID = process.env.CLIENT_ID;
+// //Lấy client id từ .env
+// const CLIENT_ID = process.env.CLIENT_ID;
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -27,8 +27,11 @@ app.use(
 );
 
 app.use(cookieParser());
-
-mongoose.connect(process.env.DB_URI);
+const dbURI = process.env.DB_URI;
+mongoose
+  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB connected..."))
+  .catch((err) => console.log(err));
 
 app.use("/api", authRouter);
 app.use("/api", ProductRouter);
