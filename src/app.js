@@ -27,11 +27,13 @@ app.use(
 );
 
 app.use(cookieParser());
-const dbURI = process.env.DB_URI;
+const dbURI =
+  process.env.DB_URI || "mongodb://localhost:27017/Shosy-Ecommerce-Starter";
+
 mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(dbURI)
   .then(() => console.log("MongoDB connected..."))
-  .catch((err) => console.log(err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use("/api", authRouter);
 app.use("/api", ProductRouter);
