@@ -16,8 +16,8 @@ app.use(bodyParser.json({ limit: "10mb" })); // Giới hạn cho JSON payload
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true })); // Giới hạn cho URL-encoded payload
 app.use(express.json());
 app.use(morgan("tiny"));
-// //Lấy client id từ .env
-// const CLIENT_ID = process.env.CLIENT_ID;
+//Lấy client id từ .env
+const CLIENT_ID = process.env.CLIENT_ID;
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -27,11 +27,14 @@ app.use(
 );
 
 app.use(cookieParser());
-const dbURI =
-  process.env.DB_URI || "mongodb://localhost:27017/Shosy-Ecommerce-Starter";
 
+// mongoose.connect("mongodb://localhost:27017/Shosy-Ecommerce-Starter");
+const dbURI = process.env.DB_URI;
 mongoose
-  .connect(dbURI)
+  .connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("MongoDB connected..."))
   .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -39,5 +42,10 @@ app.use("/api", authRouter);
 app.use("/api", ProductRouter);
 app.use("/api", OrderRouter);
 app.use("/api", PaymentRouter);
+
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 export const viteNodeApp = app;
