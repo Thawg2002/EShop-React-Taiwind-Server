@@ -20,7 +20,7 @@ app.use(morgan("tiny"));
 const CLIENT_ID = process.env.CLIENT_ID;
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.URL_REACT,
     methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
     credentials: true,
   })
