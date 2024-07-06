@@ -10,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.post("/order/create", authMiddleware, createOrder);
+router.post("/order/create", createOrder);
 router.get("/order/get-all-order-detail/:id", authMiddleware, getAllOrderDetails);
-router.get("/order/get-details-order/:id", authMiddleware, getDetailsOrder);
-router.delete("/order/cancel/:id", authMiddleware, cancelOrderDetails);
+router.get("/order/get-details-order/:id",  getDetailsOrder);
+router.delete("/order/cancel/:id",  cancelOrderDetails);
 router.get("/order/get-all-orders", authMiddleware, getAllOrder);
 
 export default router;
