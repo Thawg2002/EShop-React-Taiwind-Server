@@ -18,13 +18,14 @@ app.use(express.json());
 app.use(morgan("tiny"));
 //Lấy client id từ .env
 const CLIENT_ID = process.env.CLIENT_ID;
-app.use(
-  cors({
-    origin: process.env.URL_REACT,
-    methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: process.env.URL_REACT,
+//     methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 
 app.use(cookieParser());
 
