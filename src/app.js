@@ -21,7 +21,7 @@ const CLIENT_ID = process.env.CLIENT_ID;
 app.use(
   cors({
     origin: process.env.URL_REACT,
-    methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
+    // methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
     credentials: true,
   })
 );
